@@ -1,5 +1,6 @@
 package com.wndud0159.springboot.web;
 
+import com.wndud0159.springboot.config.auth.LoginUser;
 import com.wndud0159.springboot.config.auth.dto.SessionUser;
 import com.wndud0159.springboot.service.PostsService;
 import com.wndud0159.springboot.web.dto.PostsResponseDto;
@@ -38,10 +39,10 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser sessionUser) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+//        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
 
         if(sessionUser != null) {
             model.addAttribute("userName", sessionUser.getName());
